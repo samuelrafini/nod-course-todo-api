@@ -1,3 +1,5 @@
+require('./config/config');
+
 // npm install body parser and express 
 const _ = require('lodash');
 const express = require('express');
@@ -9,7 +11,7 @@ const { ObjectId } = require('mongodb')
 
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
