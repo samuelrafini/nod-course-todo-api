@@ -153,6 +153,23 @@ app.get('/users/me', authenticate, (req, res) => {
     }) ;
 })
 
+app.post('/users/login', (req, res) => {
+    // let email = req.params.email;
+    // let password = req.params.password;
+    let body = _.pick(req.body, ['email', 'password']);
+
+    User.findByCredentials(body.email,body.password).then((user) => {
+        return user.generateAuthToken().then((token => {
+            res.header('x-auth', token).send(user);
+        }))
+        res.header('x-auth', token).send(user);
+    }).catch((e)=> {
+        res.status(400).send();
+    });
+});
+
+
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
 });
